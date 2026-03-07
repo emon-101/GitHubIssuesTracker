@@ -5,6 +5,17 @@ const loadData = async() => {
     displayCards(data.data);
 }
 
+const showSpinner = (status) => {
+
+    if(status == true){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("Cards-container").classList.add("hidden");
+    } else {
+        document.getElementById("spinner").classList.add("hidden");
+        document.getElementById("Cards-container").classList.remove("hidden");
+    }
+}
+
 const createBadges = badges => {
     const badgeDiv = badges.map(badge => `<span class="badge  ${badge == 'bug' ? 'bg-[#FEECEC] text-[#EF4444] font-medium border-2 border-[#FECACA]' : ''} ${badge == 'help wanted' ? 'bg-[#FFF8DB] text-[#D97706] font-medium border-2 border-[#FDE68A]' : ''} ${badge == 'enhancement' ? 'bg-[#DEFCE8] text-[#00A96E] font-medium border-2 border-[#BBF7D0]' : 'bg-[#91e2ec71] text-[#00A96E] font-medium border-2 border-[#BBF7D0]'} "> ${badge === 'bug' ? '<i class="fa-solid fa-bug"></i>' : ''} ${badge === 'help wanted' ? '<i class="fa-regular fa-futbol"></i>' : ''} ${badge === 'enhancement' ? '<i class="fa-brands fa-sith"></i>' : ''} ${badge == 'documentation' ? '<i class="fa-regular fa-file-lines"></i>' : ''} ${badge == 'good first issue' ? '<i class="fa-regular fa-lightbulb"></i>' : ''}  ${badge.toUpperCase()}</span>`);
     return badgeDiv.join(" ");
@@ -60,7 +71,7 @@ const removeBtn = () => {
 const displayAllCard = async () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
-    // showSpinner(true);
+    showSpinner(true);
 
     const response = await fetch(url);
     const data = await response.json();
@@ -69,7 +80,7 @@ const displayAllCard = async () => {
     removeBtn();
 
     displayCards(cardData);
-    // showSpinner(false);
+    showSpinner(false);
 
     document.getElementById("issue-counts").innerText = cardData.length;
 
@@ -80,7 +91,7 @@ const displayAllCard = async () => {
 const displayOpenCard = async () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
-    // showSpinner(true);
+    showSpinner(true);
 
     const response = await fetch(url);
     const data = await response.json();
@@ -90,7 +101,7 @@ const displayOpenCard = async () => {
 
     const openCards = cardData.filter(card => card.status == 'open');
     displayCards(openCards);
-    // showSpinner(false);
+    showSpinner(false);
 
     document.getElementById("issue-counts").innerText = openCards.length;
 
@@ -102,7 +113,7 @@ const displayOpenCard = async () => {
 const displayCloseCard = async () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
-    // showSpinner(true);
+    showSpinner(true);
 
     const response = await fetch(url);
     const data = await response.json();
@@ -112,13 +123,12 @@ const displayCloseCard = async () => {
 
     const closeCards = cardData.filter(card => card.status == 'closed');
     displayCards(closeCards);
-    // showSpinner(false);
+    showSpinner(false);
 
     document.getElementById("issue-counts").innerText = closeCards.length;
 
     const btnClick = document.getElementById('closeBtn');
     btnClick.classList.add("btn-primary");
-
 }
 
 loadData();
