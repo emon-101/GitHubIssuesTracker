@@ -52,4 +52,73 @@ const displayCards = cards => {
     })
 }
 
+const removeBtn = () => {
+    const allBtns = document.querySelectorAll('.all-btns');
+    allBtns.forEach(btn => btn.classList.remove('btn-primary'));
+}
+
+const displayAllCard = async () => {
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+
+    // showSpinner(true);
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const cardData = data.data;
+
+    removeBtn();
+
+    displayCards(cardData);
+    // showSpinner(false);
+
+    document.getElementById("issue-counts").innerText = cardData.length;
+
+    const btnClick = document.getElementById('allBtn');
+    btnClick.classList.add("btn-primary");
+}
+
+const displayOpenCard = async () => {
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+
+    // showSpinner(true);
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const cardData = data.data;
+
+    removeBtn();
+
+    const openCards = cardData.filter(card => card.status == 'open');
+    displayCards(openCards);
+    // showSpinner(false);
+
+    document.getElementById("issue-counts").innerText = openCards.length;
+
+    const btnClick = document.getElementById('openBtn');
+    btnClick.classList.add("btn-primary");
+
+}
+
+const displayCloseCard = async () => {
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+
+    // showSpinner(true);
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const cardData = data.data;
+
+    removeBtn();
+
+    const closeCards = cardData.filter(card => card.status == 'closed');
+    displayCards(closeCards);
+    // showSpinner(false);
+
+    document.getElementById("issue-counts").innerText = closeCards.length;
+
+    const btnClick = document.getElementById('closeBtn');
+    btnClick.classList.add("btn-primary");
+
+}
+
 loadData();

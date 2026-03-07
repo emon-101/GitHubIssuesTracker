@@ -47,9 +47,9 @@
       <section>
         <!-- button container -->
         <div class="p-6 shadow rounded-lg bg-white">
-          <button class="btn btn-wide btn-primary">All</button>
-          <button class="btn btn-wide">Open</button>
-          <button class="btn btn-wide">Closed</button>
+          <button onclick="displayAllCard()" id="allBtn" class="btn btn-wide btn-primary all-btns">All</button>
+          <button onclick="displayOpenCard()" id="openBtn" class="btn btn-wide all-btns">Open</button>
+          <button onclick="displayCloseCard()" id="closeBtn" class="btn btn-wide all-btns">Closed</button>
         </div>
       </section>
       <!-- Issue counting section -->
@@ -66,7 +66,7 @@
             </div>
             <!-- content -->
             <div class="">
-              <h1 class="text-xl font-semibold"><span>50</span> Issues</h1>
+              <h1 class="text-xl font-semibold"><span id="issue-counts">50</span> Issues</h1>
               <p class="text-[#64748B]">Track and manage your project issues</p>
             </div>
           </div>
