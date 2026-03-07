@@ -21,6 +21,54 @@ const createBadges = badges => {
     return badgeDiv.join(" ");
 }
 
+const loadCardDetails = async (id) => {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+
+    showSpinner(true);
+
+    const response = await fetch(url);
+    const data = await response.json();
+    displayCardDetails(data.data);
+
+    showSpinner(false);
+}
+
+const displayCardDetails = card => {
+    const detailContainer = document.getElementById("details-container");
+    detailContainer.innerHTML = `
+    <div>
+        <h1 class="text-2xl font-bold">${card.title}</h1>
+    </div>
+    <div class="flex gap-2">
+        <span class="badge bg-green-600 text-white rounded-full">${card.status}</span>
+        <span class="text-center">• Opened by ${card.assignee? card.assignee : 'N/A'} </span>
+        <span class="text-center">• ${card.updatedAt}</span>
+    </div>
+
+    <div class="flex items-center gap-2 flex-wrap">
+        ${createBadges(card.labels)}
+    </div>
+
+    <div>
+        <p class="text-[16px] text-[#64748B]">${card.description}</p>
+    </div>
+
+    <div class="bg-base-200 p-4 flex justify-between">
+        <div>
+            <h1 class="text-[16px] text-[#64748B]">Assignee:</h1>
+            <h1 class="text-[16px] font-semibold">${card.assignee? card.assignee : 'N/A'}</h1>
+        </div>
+        <div>
+            <h1 class="text-[16px] text-[#64748B]">Priority:</h1>
+            <span class="badge ${card.priority == 'high' ? 'bg-red-200 text-red-600' : ''} ${card.priority == 'medium' ? 'bg-[#FFF6D1] text-[#F59E0B]' : ''} ${card.priority == 'low' ? 'bg-[#EEEFF2] text-[#9CA3AF]' : ''} " >${card.priority.toUpperCase()}</span>
+        </div>
+    </div>
+    `;
+
+    document.getElementById('open_modal').showModal();
+
+}
+
 const displayCards = cards => {
     const cardsContainer = document.getElementById('Cards-container');
     cardsContainer.innerHTML = "";
@@ -28,6 +76,7 @@ const displayCards = cards => {
         const cardDiv = document.createElement('div');
         cardDiv.innerHTML = `
             <div
+              onclick="loadCardDetails(${card.id})"
               class="p-5 rounded-lg shadow border-t-2 space-y-3 bg-white ${card.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}"
             >
               <!-- Priority -->
