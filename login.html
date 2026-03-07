@@ -29,6 +29,7 @@
           <fieldset class="fieldset p-4">
             <label class="label text-black">Username</label>
             <input
+              id="username-input"
               type="text"
               class="input w-full"
               placeholder="Enter Username"
@@ -37,13 +38,14 @@
 
             <label class="label text-black">Password</label>
             <input
+              id="password-input"
               type="password"
               class="input w-full"
               placeholder="Enter Password"
             />
             <p class="label text-[#4A00FF]">Default: admin123</p>
 
-            <button class="btn btn-neutral mt-4">Login</button>
+            <button id="login-btn" class="btn btn-neutral mt-4">Login</button>
           </fieldset>
         </div>
         <!-- Divider -->
@@ -62,5 +64,8 @@
         </div>
       </div>
     </section>
+
+    <!-- Script file -->
+    <script src="./scripts/login.js"></script>
   </body>
 </html>
