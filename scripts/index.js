@@ -5,6 +5,11 @@ const loadData = async() => {
     displayCards(data.data);
 }
 
+const createBadges = badges => {
+    const badgeDiv = badges.map(badge => `<span class="badge  ${badge == 'bug' ? 'bg-[#FEECEC] text-[#EF4444] font-medium border-2 border-[#FECACA]' : ''} ${badge == 'help wanted' ? 'bg-[#FFF8DB] text-[#D97706] font-medium border-2 border-[#FDE68A]' : ''} ${badge == 'enhancement' ? 'bg-[#DEFCE8] text-[#00A96E] font-medium border-2 border-[#BBF7D0]' : 'bg-[#91e2ec71] text-[#00A96E] font-medium border-2 border-[#BBF7D0]'} "> ${badge === 'bug' ? '<i class="fa-solid fa-bug"></i>' : ''} ${badge === 'help wanted' ? '<i class="fa-regular fa-futbol"></i>' : ''} ${badge === 'enhancement' ? '<i class="fa-brands fa-sith"></i>' : ''} ${badge == 'documentation' ? '<i class="fa-regular fa-file-lines"></i>' : ''} ${badge == 'good first issue' ? '<i class="fa-regular fa-lightbulb"></i>' : ''}  ${badge.toUpperCase()}</span>`);
+    return badgeDiv.join(" ");
+}
+
 const displayCards = cards => {
     const cardsContainer = document.getElementById('Cards-container');
     cardsContainer.innerHTML = "";
@@ -12,7 +17,7 @@ const displayCards = cards => {
         const cardDiv = document.createElement('div');
         cardDiv.innerHTML = `
             <div
-              class="p-5 rounded-lg shadow border-t-2 border-green-500 space-y-3 bg-white aspect-square"
+              class="p-5 rounded-lg shadow border-t-2 space-y-3 bg-white ${card.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}"
             >
               <!-- Priority -->
               <div class="flex justify-between items-center">
@@ -32,19 +37,14 @@ const displayCards = cards => {
                 </p>
               </div>
               <!-- problem badge -->
-              <div class="">
-                <button class="py-1.5 px-4 rounded-full bg-[#FEECEC] text-xs">
-                  <i class="fa-solid fa-bug"></i> BUG
-                </button>
-                <button class="py-1.5 px-4 rounded-full bg-[#FEECEC] text-xs">
-                  <i class="fa-solid fa-futbol"></i> HELP WANTED
-                </button>
+              <div class="flex items-center gap-1 flex-wrap">
+                ${createBadges(card.labels)}
               </div>
               <div class="border my-6 border-gray-300"></div>
               <!-- author and data -->
               <div class="">
-                <p class="text-xs text-[#64748B] mb-1">#1 by john_doe</p>
-                <p class="text-xs text-[#64748B]">1/15/2024</p>
+                <p class="text-xs text-[#64748B] mb-1">#1 by ${card.author}</p>
+                <p class="text-xs text-[#64748B]">${card.updatedAt}</p>
               </div>
             </div>
         `;
