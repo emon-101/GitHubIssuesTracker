@@ -25,10 +25,10 @@
   <body>
     <header>
       <nav class="bg-base-100 shadow-sm mb-14">
-        <div class="navbar w-9/10 mx-auto">
+        <div class="navbar w-9/10 mx-auto flex flex-col md:flex-row gap-3">
           <div class="flex-1 flex items-center">
             <img class="w-9 h-9" src="./assets/github-logo.png" alt="" />
-            <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
+            <a class="btn btn-ghost md:text-xl">GitHub Issues Tracker</a>
           </div>
           <div class="flex gap-2">
             <div class="join">
@@ -49,7 +49,7 @@
       <!-- menu buttons -->
       <section>
         <!-- button container -->
-        <div class="p-6 shadow rounded-lg bg-white">
+        <div class="p-6 shadow rounded-lg bg-white flex flex-col gap-2 md:flex-row">
           <button onclick="displayAllCard()" id="allBtn" class="btn btn-wide btn-primary all-btns">All</button>
           <button onclick="displayOpenCard()" id="openBtn" class="btn btn-wide all-btns">Open</button>
           <button onclick="displayCloseCard()" id="closeBtn" class="btn btn-wide all-btns">Closed</button>
