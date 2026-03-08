@@ -8,7 +8,7 @@ document.getElementById('login-btn').addEventListener('click', ()=> {
     
     // Credential check
     if(userInputValue === "admin" && userPasswordValue === "admin123") {
-        window.location.assign('/home.html');
+        window.location.assign('./home.html');
     } else {
         alert('Please provide the correct information');
         return;
