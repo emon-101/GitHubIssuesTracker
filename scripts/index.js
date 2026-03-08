@@ -77,7 +77,7 @@ const displayCards = cards => {
         cardDiv.innerHTML = `
             <div
               onclick="loadCardDetails(${card.id})"
-              class="p-5 rounded-lg shadow border-t-2 space-y-3 bg-white ${card.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}"
+              class="cursor-pointer hover:scale-105 hover:-translate-0.5 duration-300 p-5 rounded-lg shadow border-t-2 space-y-3 bg-white ${card.status === 'open' ? 'border-[#00A96E]' : 'border-[#A855F7]'}"
             >
               <!-- Priority -->
               <div class="flex justify-between items-center">
@@ -179,5 +179,28 @@ const displayCloseCard = async () => {
     const btnClick = document.getElementById('closeBtn');
     btnClick.classList.add("btn-primary");
 }
+
+document.getElementById("search-btn").addEventListener('click', ()=>{
+    removeBtn();
+
+    showSpinner(true);
+
+    const inputField = document.getElementById("search");
+    const inputValue = inputField.value.trim().toLowerCase();
+    
+    fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then(response => response.json())
+    .then(data => {
+        const allIssues = data.data;
+        const filterIssues = allIssues.filter(issue => issue.title.toLowerCase().includes(inputValue));
+
+        displayCards(filterIssues);
+
+        document.getElementById("issue-counts").innerText = filterIssues.length;
+        inputField.value = "";
+    })
+
+    showSpinner(false);
+})
 
 loadData();

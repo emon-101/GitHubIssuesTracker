@@ -31,11 +31,14 @@
             <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
           </div>
           <div class="flex gap-2">
-            <input
-              type="text"
-              placeholder="Search issues..."
-              class="input input-bordered w-24 md:w-auto"
-            />
+            <div class="join">
+                <div>
+                    <label class="input join-item">
+                        <input id="search" type="text" placeholder="Search issues..." />
+                    </label>
+                </div>
+                <button id="search-btn" class="btn btn-soft btn-primary join-item">Search</button>
+            </div>
             <button class="btn btn-primary">+ New Issue</button>
           </div>
         </div>
